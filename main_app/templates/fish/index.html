@@ -5,35 +5,24 @@
 <link 
   rel="stylesheet"
   type="text/css"
-  href="{% static 'css/cats/cat-index.css' %}"
+  href="{% static 'css/fish/fish-index.css' %}"
 />
 {% endblock %}
 
 {% block content %}
 
-<section class="page-header">
-  <h1>Cat List</h1>
-  <img src="{% static 'images/cool-cat.svg' %}" alt="A cool cat" />
-  <img src="{% static 'images/happy-cat.svg' %}" alt="A happy cat" />
-  <img src="{% static 'images/teacup-cat.svg' %}" alt="A cat in a teacup" />
-  <img src="{% static 'images/cat-in-box.svg' %}" alt="A cat in a box" />
-</section>
-
-<section class="card-container">
-  {% for fish in fish %}
-    <div class="card">
-      <div class="card-content">
-        <div class="card-img-container">
-          <img 
-            src="{% static 'images/sk8r-boi-cat.svg' %}" 
-            alt="A skater boy cat"
-          >
+  <section class="container d-flex w-75">
+    {% for fish in fish %}
+      <a href="{% url 'fish_detail' fish.id %}" class="text-decoration-none text-dark">
+        <div class="card m-2 flex-column justify-content-center" style='width: 18rem;height: 18rem;'>
+          <img src="{{ fish.picture }}" alt="picture of fish">
+            <div class="card-body">
+              <h5 class="card-title">{{ fish.name }}</h5>
+              <p class='card-text'>{{ fish.scientific_name }}</p>
+            </div>
         </div>
-        <h2 class="card-title">{{ fish.name }}</h2>
-        <p><small>{{ fish.description }}</small></p>
-      </div>
-    </div>
-  {% endfor %}
-</section>
+      </a>
+    {% endfor %}
+  </section>
 
 {% endblock %}
