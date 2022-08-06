@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 from .models import Fish
 
 # Define the home view
@@ -15,3 +16,8 @@ def fish_index(request):
 def fish_detail(request, fish_id):
   fish = Fish.objects.get(id=fish_id)
   return render(request, 'fish/detail.html', { 'fish': fish })
+
+class FishCreate(CreateView):
+  model = Fish
+  fields = ['name', 'scientific_name', 'category', 'picture']
+  success_url = '/fish/'
