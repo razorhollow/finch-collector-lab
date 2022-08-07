@@ -1,9 +1,22 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Fish
+from django.views.generic import ListView, DetailView
+from .models import Fish, Lure
 from .forms import CaughtForm
 
-# Define the home view
+class LureList(ListView):
+  model = Lure
+
+class LureDetail(DetailView):
+  model = Lure
+
+class LureUpdate(UpdateView):
+  model = Lure
+  fields = ['name', 'color']
+
+class LureDelete(DeleteView):
+  model = Luresuccess_url = '/lures/'
+
 def home(request):
   return render(request, 'home.html')
 
@@ -40,3 +53,7 @@ def add_catch(request, fish_id):
     new_catch.fish_id = fish_id
     new_catch.save()
   return redirect('fish_detail', fish_id=fish_id)
+
+class LureCreate(CreateView):
+  model = Lure
+  fields = '__all__'

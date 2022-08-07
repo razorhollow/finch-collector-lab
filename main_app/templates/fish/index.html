@@ -11,7 +11,7 @@
 
 {% block content %}
 
-  <section class="container d-flex w-75 flex-wrap">
+  <section class="container d-flex w-75 flex-wrap mt-2">
     {% for fish in fish %}
       <a href="{% url 'fish_detail' fish.id %}" class="text-decoration-none text-dark">
         <div class="card m-2 flex-column justify-content-center" style='width: 18rem;height: 18rem;'>

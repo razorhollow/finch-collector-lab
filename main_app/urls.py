@@ -10,4 +10,9 @@ urlpatterns = [
   path('fish/<int:pk>/update/', views.FishUpdate.as_view(), name='fish_update'),
   path('fish/<int:pk>/delete/', views.FishDelete.as_view(), name='fish_delete'),
   path('fish/<int:fish_id>/add_catch/', views.add_catch, name='add_catch'),
+  path('lures/create/', views.LureCreate.as_view(), name='lure_create'),
+  path('lures/<int:pk>/', views.LureDetail.as_view(), name='lure_detail'),
+  path('lures/', views.LureList.as_view(), name='lures_index'),
+  path('lures/<int:pk>/update/', views.LureUpdate.as_view(), name='lures_update'),
+  path('lures/<int:pk>/delete/', views.LureDelete.as_view(), name='lures_delete'),
 ]

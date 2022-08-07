@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse 
 
 CATEGORIES = (
   ('F', 'Freshwater'),
@@ -29,3 +30,13 @@ class Caught(models.Model):
 
   class Meta:
     ordering = ['-date']
+
+class Lure(models.Model):
+  name = models.CharField(max_length=50)
+  color = models.CharField(max_length=30)
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('lure_detail', kwargs={'pk': self.id})

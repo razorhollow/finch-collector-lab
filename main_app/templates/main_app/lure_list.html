@@ -1,0 +1,27 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/lures/lure-index.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+<section class="card-container">
+  {% for lure in lure_list %}
+  <div class="card" style="border-color: {{ lure.color }}">
+    <div class="card-bg" style="background-color: {{ lure.color }}"></div>
+    <a href="{% url 'lure_detail' lure.id %}">
+      <div class="card-content">
+        <h2>{{ lure.name }}</h2>
+        <p>A {{ lure.color }} lure</p>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}
