@@ -16,7 +16,7 @@ class Fish(models.Model):
     choices=CATEGORIES,
     default=CATEGORIES[0][0]
   )
-  picture = models.URLField(default="")
+  picture = models.URLField(blank=True, default="")
 
   def __str__(self):
     return self.name

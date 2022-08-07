@@ -16,6 +16,8 @@
       <div class="card-body">
         <h5 class="card-title">{{ fish.name }}</h5>
         <p class='card-text'>{{ fish.scientific_name }}</p>
+        <a href="{% url 'fish_update' fish.id %}" class="btn btn-outline-warning">Edit</a>
+        <a href="{% url 'fish_delete' fish.id %}" class="btn btn-outline-danger">Delete</a>
       </div>
   </div>
 </div>

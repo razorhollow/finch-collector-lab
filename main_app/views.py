@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Fish
 
 # Define the home view
@@ -20,4 +20,13 @@ def fish_detail(request, fish_id):
 class FishCreate(CreateView):
   model = Fish
   fields = ['name', 'scientific_name', 'category', 'picture']
+  success_url = '/fish/'
+
+class FishUpdate(UpdateView):
+  model = Fish
+  fields = ['scientific_name', 'category', 'picture']
+  success_url = '/fish/'
+
+class FishDelete(DeleteView):
+  model = Fish
   success_url = '/fish/'
