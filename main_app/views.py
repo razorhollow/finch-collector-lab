@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Fish
+from .forms import CaughtForm
 
 # Define the home view
 def home(request):
@@ -15,7 +16,8 @@ def fish_index(request):
 
 def fish_detail(request, fish_id):
   fish = Fish.objects.get(id=fish_id)
-  return render(request, 'fish/detail.html', { 'fish': fish })
+  caught_form = CaughtForm()
+  return render(request, 'fish/detail.html', { 'fish': fish, 'caught_form': caught_form })
 
 class FishCreate(CreateView):
   model = Fish
@@ -30,3 +32,11 @@ class FishUpdate(UpdateView):
 class FishDelete(DeleteView):
   model = Fish
   success_url = '/fish/'
+
+def add_catch(request, fish_id):
+  form = CaughtForm(request.POST)
+  if form.is_valid():
+    new_catch = form.save(commit=False)
+    new_catch.fish_id = fish_id
+    new_catch.save()
+  return redirect('fish_detail', fish_id=fish_id)

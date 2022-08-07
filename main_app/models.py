@@ -1,5 +1,4 @@
 from django.db import models
-# anadromous, saltwater, freshwater
 
 CATEGORIES = (
   ('F', 'Freshwater'),
@@ -20,3 +19,13 @@ class Fish(models.Model):
 
   def __str__(self):
     return self.name
+
+class Caught(models.Model):
+  date = models.DateField('Catch Date')
+  fish = models.ForeignKey(Fish, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return f"Caught on {self.date}"
+
+  class Meta:
+    ordering = ['-date']

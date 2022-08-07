@@ -11,7 +11,7 @@
 
 {% block content %}
 
-  <section class="container d-flex w-75">
+  <section class="container d-flex w-75 flex-wrap">
     {% for fish in fish %}
       <a href="{% url 'fish_detail' fish.id %}" class="text-decoration-none text-dark">
         <div class="card m-2 flex-column justify-content-center" style='width: 18rem;height: 18rem;'>
@@ -19,6 +19,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ fish.name }}</h5>
               <p class='card-text'>{{ fish.scientific_name }}</p>
+              <p class='card-text'>{{ fish.get_category_display }}</p>
             </div>
         </div>
       </a>
