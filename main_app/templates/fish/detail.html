@@ -31,27 +31,67 @@
       </div>
   </div>
 </div>
-<h3>Add A Catch</h3>
-<form 
-action="{% url 'add_catch' fish.id %}"
-method="post"
-class=""
->
-  {% csrf_token %}
-  {{caught_form.as_p }}
-  <button type='submit' class="btn btn-outline-success">Record Catch</button>
-</form>
-<div class="catch-container w-100 d-flex flex-column align-items-center justify-content-center mt-3">
+<div class='d-flex flex-column w-100 justify-content-center align-items-center m-5'>
+  <h3 class='mb-2'>Add A Catch</h3>
+  <form 
+  action="{% url 'add_catch' fish.id %}"
+  method="post"
+  class="mt-5"
+  >
+    {% csrf_token %}
+    {{caught_form.as_p }}
+    <button type='submit' class="btn btn-outline-success align-self-start">Record Catch</button>
+  </form>
+</div>
+<div class="catch-container w-100 d-flex flex-column align-items-center justify-content-center mt-5">
   <h2>Catches</h2>
   {% if fish.caught_set.all.count %}
-    <ul class="list-group">
+    <ul class="list-group mb-5">
       {% for caught in fish.caught_set.all %}
         <li class='list-group-item'>{{ caught.date }}</li>
       {% endfor %}
     </ul>
+    <section>
+      <h2>Lures Used To Catch {{ fish.name }}</h2>
+      {% if fish.lures.count %}
+        {% for lure in fish.lures.all %}
+          <div class="lure-container">
+            <div 
+              class="color-block"
+              style="background-color: {{ lure.color }}"
+            ></div>
+            <a href="{% url 'lure_detail' lure.id %}" class='text-decoration-none'>
+              <p>A {{ lure.color }} {{ lure.name }}</p>
+            </a>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </section>
   {% else %}
     <p>{{fish.name}} has never been caught 🦄</p>
     {% endif %}
+    <h3>Available Lures</h3>
+    <div class="subsection-content">
+      {% if lures.count %}
+        {% for lure in lures.all %}
+          <div class="lure-container d-flex w-75 align-items-center">
+            <div 
+              class="color-block"
+              style="background-color: {{ toy.color }}"
+            ></div>
+            <a href="{% url 'lure_detail' lure.id %}" class='text-decoration-none'>
+              <p>A {{ lure.color }} {{ lure.name }}</p>
+            </a>
+            <form action="{% url 'assoc_lure' fish.id lure.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-success m-4">Record Lure</button>
+            </form>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </section>
+</div>
 </div>
 
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse 
+from django.contrib.auth.models import User
 
 CATEGORIES = (
   ('F', 'Freshwater'),
@@ -8,6 +9,16 @@ CATEGORIES = (
 )
 
 # Create your models here.
+class Lure(models.Model):
+  name = models.CharField(max_length=50)
+  color = models.CharField(max_length=30)
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('lure_detail', kwargs={'pk': self.id})
+
 class Fish(models.Model):
   name = models.CharField(max_length=100, default='fish')
   scientific_name = models.CharField(max_length=100, default="")
@@ -17,6 +28,8 @@ class Fish(models.Model):
     default=CATEGORIES[0][0]
   )
   picture = models.URLField(blank=True, default="")
+  lures = models.ManyToManyField(Lure)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):
     return self.name
@@ -30,13 +43,3 @@ class Caught(models.Model):
 
   class Meta:
     ordering = ['-date']
-
-class Lure(models.Model):
-  name = models.CharField(max_length=50)
-  color = models.CharField(max_length=30)
-
-  def __str__(self):
-    return self.name
-
-  def get_absolute_url(self):
-    return reverse('lure_detail', kwargs={'pk': self.id})
